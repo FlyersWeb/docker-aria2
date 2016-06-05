@@ -23,6 +23,7 @@ RUN buildDeps='curl gnupg' HOME='/root' \
   && rm -f gosu-amd64.asc \
   && mv gosu-amd64 /usr/bin/gosu \
   && chmod +x /usr/bin/gosu \
+  && gosu nobody true \
   && apk del --purge $buildDeps \
   && rm -rf /root/.gnupg \
   && rm -rf /var/cache/apk/* \
@@ -44,7 +45,7 @@ RUN set -x \
            aria2=${RESOLVED_ARIA2_VERSION:?"Impossible to find 'aria2' in version '$ARIA2_VERSION'"} \
            ca-certificates \
 
-    && apk add --update bash \  
+    && apk add --update bash \
 
     # Clean
 
@@ -52,14 +53,13 @@ RUN set -x \
            /var/cache/apk/* \
 
     && mkdir -p /data \
-    && mkdir -p /dataComplete 
+    && mkdir -p /dataComplete
 
 COPY aria2.conf /etc/aria2/aria2.conf
 COPY oncomplete.sh /
 COPY docker-entrypoint.sh /
 
-EXPOSE 6800
-
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-CMD [ "aria2c" ]
+EXPOSE 6800
+CMD [ "aria2" ]
