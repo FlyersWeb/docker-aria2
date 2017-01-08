@@ -9,11 +9,6 @@ COMPLETE=/dataComplete # no trailing slash!
 LOG=/mvcompleted.log
 SRC=$3
 
-if [ "$2" == "0" ]; then
-  echo `date` "INFO  no file to move for" "$1". >> "$LOG"
-  exit 0
-fi
-
 while true; do
   DIR=`dirname "$SRC"`
   if [ "$DIR" == "$DOWNLOAD" ]; then
