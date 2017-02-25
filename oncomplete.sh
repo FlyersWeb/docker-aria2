@@ -6,7 +6,7 @@
 
 DOWNLOAD=/data # no trailing slash!
 COMPLETE=/dataComplete # no trailing slash!
-LOG=/mvcompleted.log
+LOG=/tmp/mvcompleted.log
 SRC=$3
 
 while true; do
