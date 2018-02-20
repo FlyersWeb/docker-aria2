@@ -1,7 +1,7 @@
-FROM alpine:3.2
+FROM alpine:3.6
 MAINTAINER Flyers <contact@flyers-web.org>
 
-ENV ARIA2_VERSION=1.18.10
+ENV ARIA2_VERSION=1.33.1
 
 RUN set -x \
 
