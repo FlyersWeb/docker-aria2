@@ -12,11 +12,12 @@ SRC=$3
 DIR=`dirname "$SRC"`
 if [ "$ITEMNB" == 0 ]; then
   echo `date` INFO no item SAVED.
-elif [ "$DIR" == "$DOWNLOAD" ]; then
-  if [ -n "$FUID" ] && [ -n "$FGID" ]; then
-    chown $FUID.$FGID -R "$SRC"
-  fi
-  mv "$SRC" "$COMPLETE"
+else
+  cp -r "$SRC" "$COMPLETE"
   echo `date` INFO "$3" moved to "$COMPLETE".
+  if [ -n "$FUID" ] && [ -n "$FGID" ]; then
+    chown -R $FUID.$FGID -R "$SRC"
+    echo `date` INFO "$3" rights changed.
+  fi
 fi
 exit 0
