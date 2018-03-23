@@ -9,15 +9,24 @@ COMPLETE=/dataComplete # no trailing slash!
 ITEMNB=$2
 SRC=$3
 
-DIR=`dirname "$SRC"`
 if [ "$ITEMNB" == 0 ]; then
   echo `date` INFO no item SAVED.
-else
-  cp -r "$SRC" "$COMPLETE"
-  echo `date` INFO "$3" moved to "$COMPLETE".
-  if [ -n "$FUID" ] && [ -n "$FGID" ]; then
-    chown -R $FUID.$FGID -R "$SRC"
-    echo `date` INFO "$3" rights changed.
-  fi
+  exit 0
 fi
+
+while true; do
+  DIR=`dirname "$SRC"`
+  echo `date` DIR is "$DIR" and SRC is "$SRC"
+  if [ "$DIR" == "$DOWNLOAD" ]; then
+    if [ -n "$FUID" ] && [ -n "$FGID" ]; then
+      chown -Rf $FUID.$FGID -R "$SRC"
+      echo `date` INFO "$SRC" rights changed.
+    fi
+    mv -f "$SRC" "$COMPLETE"
+    echo `date` INFO "$SRC" moved to "$COMPLETE".
+    exit $?
+  else
+    SRC=$DIR
+  fi
+done
 exit 0
